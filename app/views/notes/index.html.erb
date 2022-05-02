@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>Your personnalized notepad</h1>
+
+  <% @notes.each do | note | %>
+    <p> <%= check_box_tag :status %> <%= note.name %> - <%= note.description %></p>
+  <% end %>
+
+  <%= render "notes/new_note_form" %>
+</div>
