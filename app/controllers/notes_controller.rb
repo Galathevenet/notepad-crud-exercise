@@ -1,11 +1,12 @@
 class NotesController < ApplicationController
+  before_action :select_note, :only [:show, :edit, :update, :destroy]
+
   def index
     @notes = Note.all
     @note = Note.new
   end
 
   def show
-    @note = Note.find(params[:id])
   end
 
   def new
@@ -22,11 +23,9 @@ class NotesController < ApplicationController
   end
 
   def edit
-    @note = Note.find(params[:id])
   end
 
   def update
-    @note = Note.find(params[:id])
     if @note.update(note_params)
       redirect_to note_path(@note)
     else
@@ -35,7 +34,6 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @note = Note.find(params[:id])
     @note.destroy
     redirect_to notes_path
   end
@@ -44,5 +42,9 @@ class NotesController < ApplicationController
 
   def note_params
     params.require(:note).permit(:name, :description)
+  end
+
+  def select_note
+    @note = Note.find(params[:id])
   end
 end
